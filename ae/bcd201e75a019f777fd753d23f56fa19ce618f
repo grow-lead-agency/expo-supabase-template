@@ -1,0 +1,48 @@
+docs/FIRST-FORK-RUNBOOK.md
+  s_298d509f2ab7af::t_b789c8cd7e27cd 99-108
+targets/widget/widget-bundle.swift
+  s_298d509f2ab7af::t_14727817b5d977 1-11
+CLAUDE.md
+  s_298d509f2ab7af::t_c00f184333795f 86
+  s_298d509f2ab7af::t_cc496298dd927b 96
+bin/setup.sh
+  s_298d509f2ab7af::t_8ff16ae60ba085 126-127
+targets/README.md
+  s_298d509f2ab7af::t_b936a233060b7e 1-54
+targets/widget/expo-target.config.json
+  s_298d509f2ab7af::t_3e91291e62ae0d 1-10
+targets/widget/README.md
+  s_298d509f2ab7af::t_ad6aa82cab06b5 1-69
+targets/live-activity/expo-target.config.json
+  s_298d509f2ab7af::t_280279fbc4b788 1-10
+docs/runbooks/ios-widgets-howto.md
+  s_298d509f2ab7af::t_fa009161d3d0e8 1-307
+targets/live-activity/live-activity.swift
+  s_298d509f2ab7af::t_53eb06c035f628 1-64
+README.md
+  s_298d509f2ab7af::t_f56b0385137e97 63
+targets/widget/widget.swift
+  s_298d509f2ab7af::t_e6f3e7d6916e2e 1-117
+targets/widget/widget-storage.ts.template
+  s_298d509f2ab7af::t_527795b4564c9a 1-43
+targets/live-activity/README.md
+  s_298d509f2ab7af::t_ea7eb5440eb0f8 1-77
+bin/setup-widgets.sh
+  s_298d509f2ab7af::t_ee638cb46bcb95 1-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "aebcd201e75a019f777fd753d23f56fa19ce618f",
+  "prompts": {},
+  "sessions": {
+    "s_298d509f2ab7af": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "856e6a72-9b9f-419a-8d27-a29d7a4a6b78",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
