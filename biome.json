@@ -1,0 +1,113 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/build",
+      "!**/.wrangler",
+      "!**/.tanstack",
+      "!**/node_modules",
+      "!**/migrations",
+      "!**/*.generated.ts",
+      "!**/*.gen.ts",
+      "!**/routeTree.gen.ts",
+      "!**/worker-configuration.d.ts",
+      "!packages/ui/src/components/shadcnmaps/map-data"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "lineEnding": "lf"
+  },
+  "css": {
+    "parser": { "tailwindDirectives": true }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all",
+      "arrowParentheses": "always"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noArrayIndexKey": "off",
+        "noConsole": { "level": "off", "options": { "allow": ["log"] } },
+        "noDocumentCookie": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "warn",
+        "useImportType": "warn"
+      },
+      "correctness": {
+        "noUnusedVariables": "warn",
+        "noUnusedImports": "warn",
+        "noInnerDeclarations": "off",
+        "useHookAtTopLevel": "off"
+      },
+      "a11y": {
+        "noLabelWithoutControl": "off",
+        "useAriaPropsSupportedByRole": "off",
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noImportantStyles": "off"
+      }
+    }
+  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "overrides": [
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noUnknownAtRules": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/__tests__/**", "**/*.test.ts", "**/*.test.tsx", "e2e/**/*.spec.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/ui/src/components/shadcnmaps/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noAriaHiddenOnFocusable": "off",
+            "noSvgWithoutTitle": "off"
+          },
+          "suspicious": {
+            "noShadowRestrictedNames": "off"
+          }
+        }
+      }
+    }
+  ]
+}

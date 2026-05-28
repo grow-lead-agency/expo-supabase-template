@@ -1,0 +1,11 @@
+# Codex CLI config — expo-supabase-template
+# See https://github.com/openai/codex for the full schema.
+
+[project]
+context_files = ["AGENTS.md", "CLAUDE.md"]
+language = "typescript"
+runtime = "bun"
+framework = "expo"
+
+[sandbox]
+allow_paths = ["src/", "docs/", "bin/", "assets/", "src/locales/"]
