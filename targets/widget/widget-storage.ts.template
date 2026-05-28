@@ -1,0 +1,43 @@
+import { ExtensionStorage } from "@bacons/apple-targets";
+
+/**
+ * App Group ID — must match `targets/widget/expo-target.config.json`
+ * and `widget.swift`. `bin/setup-widgets.sh` replaces the placeholder
+ * with `group.<bundleId>` from `app.json`.
+ */
+const APP_GROUP = "group.cz.PLACEHOLDER.app";
+
+const storage = new ExtensionStorage(APP_GROUP);
+
+/**
+ * JS-side helper for writing data accessible by the iOS widget extension.
+ *
+ * The widget reads via `UserDefaults(suiteName: appGroup)` in
+ * `targets/widget/widget.swift`. Keys must match between the two layers.
+ *
+ * Available only after running `bin/setup-widgets.sh`. If the widget
+ * extension is not installed in the binary, the operations are no-ops.
+ *
+ * @example
+ * ```ts
+ * import { widgetStorage } from "@/lib/widget-storage";
+ *
+ * await widgetStorage.setTitle("Příští termín");
+ * await widgetStorage.setSubtitle("Středa 14:00 — Kadeřnictví Novák");
+ * await widgetStorage.reloadAllTimelines();
+ * ```
+ */
+export const widgetStorage = {
+  async setTitle(value: string): Promise<void> {
+    storage.set("widget.title", value);
+  },
+  async setSubtitle(value: string): Promise<void> {
+    storage.set("widget.subtitle", value);
+  },
+  async set(key: string, value: string): Promise<void> {
+    storage.set(key, value);
+  },
+  async reloadAllTimelines(): Promise<void> {
+    ExtensionStorage.reloadWidget();
+  },
+};

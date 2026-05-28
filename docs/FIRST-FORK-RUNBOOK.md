@@ -96,6 +96,16 @@ bun run submit:ios
 
 Petr/testers get TestFlight invite by email.
 
+### Optional: iOS widgets
+
+If your app needs Home Screen widgets, Lock Screen widgets, or Live Activities:
+
+```bash
+bin/setup-widgets.sh
+```
+
+See [`docs/runbooks/ios-widgets-howto.md`](./runbooks/ios-widgets-howto.md) for full setup.
+
 ## Common issues
 
 - **QR doesn't work in Expo Go SDK 56:** Expo Go for SDK 56 not on App Store as of 2026-05. Use EAS Development Build instead (`bun run build:dev`).

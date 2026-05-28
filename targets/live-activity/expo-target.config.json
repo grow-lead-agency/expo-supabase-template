@@ -1,0 +1,10 @@
+{
+  "type": "activity",
+  "name": "AppLiveActivity",
+  "bundleIdentifier": "{{BUNDLE_ID}}.activity",
+  "deploymentTarget": "16.2",
+  "frameworks": ["ActivityKit", "WidgetKit", "SwiftUI"],
+  "entitlements": {
+    "com.apple.security.application-groups": ["group.{{BUNDLE_ID}}"]
+  }
+}

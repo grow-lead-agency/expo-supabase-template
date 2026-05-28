@@ -60,6 +60,7 @@ Tracking: [PROD-2655](https://linear.app/growlead/issue/PROD-2655) (epic) v Line
 | **Git hooks** | Lefthook | Match cf-tool / gl-app conventions |
 | **PM** | Bun | HARD RULE — žádný npm/yarn/pnpm |
 | **TypeScript** | strict mode | HARD RULE |
+| **iOS Widgets** | `@bacons/apple-targets` (opt-in via `bin/setup-widgets.sh`) | Beta lib. Pre-wired skeleton in `targets/`, customize per project. See [`docs/runbooks/ios-widgets-howto.md`](./docs/runbooks/ios-widgets-howto.md). |
 
 ---
 

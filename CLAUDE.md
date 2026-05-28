@@ -83,6 +83,7 @@ eas submit --platform ios --latest                  # Upload to TestFlight
 | `useColorScheme` z `react-native` | `useColorScheme` z `nativewind` |
 | `FlatList` pro >50 items | `@shopify/flash-list` |
 | `npm install` / `yarn add` | `bun add` / `bunx expo install` |
+| Auto-enable widgets in a fork | Opt-in only via `bin/setup-widgets.sh` (beta lib, Swift learning curve, App Groups setup) |
 
 ## When to use which skill
 
@@ -92,6 +93,7 @@ eas submit --platform ios --latest                  # Upload to TestFlight
 - **Auth deep dive** (Sign in with Apple, magic links, Google) → `auth-supabase-cf` skill
 - **Czech pluralization / CLDR rules** → `i18n-czech` skill
 - **Code review** → `cr` slash command (turbo mode)
+- **iOS widgets / Live Activities** → see `docs/runbooks/ios-widgets-howto.md` + `@bacons/apple-targets` (opt-in via `bin/setup-widgets.sh`)
 
 ## Forking workflow
 
