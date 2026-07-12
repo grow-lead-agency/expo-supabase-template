@@ -1,0 +1,109 @@
+lefthook.yml
+  s_ba9fefc8c3d6b7::t_3e668d046057b1 21-30,33-35
+src/stores/use-app-store.ts
+  s_ba9fefc8c3d6b7::t_8a8751f38e9223 1-19
+package.json
+  s_ba9fefc8c3d6b7::t_e630c5b6d367ae 24-29
+  s_ba9fefc8c3d6b7::t_6f48ff8f84605c 36,55
+  s_ba9fefc8c3d6b7::t_2104aba1f5438e 79
+.gitleaks.toml
+  s_ba9fefc8c3d6b7::t_f6453b18e0b9d8 1-24
+src/lib/auth.ts
+  s_ba9fefc8c3d6b7::t_417612858921f0 1,5-17,19-21,28,35-36,38-39
+app.json
+  s_ba9fefc8c3d6b7::t_a6be8203e20adf 11-13
+  s_ba9fefc8c3d6b7::t_e0f507f6fb3edd 47-49
+.github/dependabot.yml
+  s_ba9fefc8c3d6b7::t_a028a0957ddff2 1-44
+src/lib/sentry.ts
+  s_ba9fefc8c3d6b7::t_49bf5146dafb6e 1-22
+src/locales/en.json
+  s_ba9fefc8c3d6b7::t_5f6795f037cc90 8-12,17-19,22-31
+.github/workflows/ci.yml
+  s_ba9fefc8c3d6b7::t_683c56afd67902 8-14,18,20-21,25
+bin/setup.sh
+  s_ba9fefc8c3d6b7::t_f535ee88ac0d05 80
+  s_ba9fefc8c3d6b7::t_e17564d8a7a75b 99-100
+  s_ba9fefc8c3d6b7::t_a303fd4a528748 126-131
+src/locales/cs.json
+  s_ba9fefc8c3d6b7::t_6e41fe591615df 8-12,17-19,22-31
+src/lib/storage/secure-chunked.ts
+  s_ba9fefc8c3d6b7::t_d67f8bb2248cac 36-43,46-48,58-64
+tsconfig.json
+  s_ba9fefc8c3d6b7::t_8290e72ff91187 23
+  s_ba9fefc8c3d6b7::t_c5cb10c49c1082 24
+src/lib/supabase.ts
+  s_ba9fefc8c3d6b7::t_b83caf2fc99448 26
+src/app/+not-found.tsx
+  s_ba9fefc8c3d6b7::t_a651868e1f54e6 1-24
+src/app/_layout.tsx
+  s_ba9fefc8c3d6b7::t_b47c85e65b17f8 5,10-12,16-50,59-62,64,77,89-90
+src/app/(auth)/sign-in.tsx
+  s_ba9fefc8c3d6b7::t_aa1664cf4d4729 1,3,7,9,11-26,29-40,42-46,49-57,59-66,74-76,79-108,110-121,123-130,133-154,156-167
+  s_9e91c1a89e42a3::t_872411f4d968c4 168-170
+src/app/auth/callback.tsx
+  s_ba9fefc8c3d6b7::t_17faafecb28673 1-53
+eas.json
+  s_ba9fefc8c3d6b7::t_e630c5b6d367ae 8
+bin/doctor.sh
+  s_ba9fefc8c3d6b7::t_c5415712c74052 1-65
+.github/workflows/eas-preview.yml
+  s_ba9fefc8c3d6b7::t_941f300b30b43f 13-15,19,21,23,40-41
+  s_ba9fefc8c3d6b7::t_cca8792b958f0e 29
+  s_5b4e8a55887894::t_2197fc2609f390 42
+docs/FIRST-FORK-RUNBOOK.md
+  s_ba9fefc8c3d6b7::t_7feddfd8dd052f 59-68
+  s_ba9fefc8c3d6b7::t_631f9eca382a74 84-85,88-89
+CLAUDE.md
+  s_ba9fefc8c3d6b7::t_2f2760ecfb2d60 51-53,61-62
+  s_ba9fefc8c3d6b7::t_a835eb1603ccec 92-94
+  s_ba9fefc8c3d6b7::t_3294a88805c094 136-140,143,150-152,157-159,164
+.github/workflows/security.yml
+  s_9e91c1a89e42a3::t_01b0502491f938 1-58
+.maestro/smoke.yaml
+  s_c9a925a58c1295::t_9af8724c4c05b0 1-18
+bun.lock
+  s_ba9fefc8c3d6b7::t_4220b758bf13f3 12,31,55,457-458,489-490,587-588,713-714,723-724,731-732,749-750,755-758,1463-1464
+src/lib/storage/secure-chunked.test.ts
+  s_c9a925a58c1295::t_48eb879fc49dc4 1-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "d63d93dccc6db0d3d7a5ee2f23d7c6530d95596f",
+  "prompts": {},
+  "sessions": {
+    "s_5b4e8a55887894": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5700-62d7-7d41-8222-829f4cebee08",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_9e91c1a89e42a3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f52e6-63a2-7ab0-9a72-5364c6946def",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_ba9fefc8c3d6b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07e40652-83e2-4d31-af5b-8d1c65ee9057",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_c9a925a58c1295": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8ebd87a7-e698-4677-896c-ca95325cc2c8",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
