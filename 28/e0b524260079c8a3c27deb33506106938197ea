@@ -1,0 +1,33 @@
+docs/adr/ADR-008-expo-updates-ota.md
+  s_ba9fefc8c3d6b7::t_b4671867c747fb 1-37
+README.md
+  s_ba9fefc8c3d6b7::t_6b196607899cac 30-31
+docs/adr/ADR-007-magic-link-pkce-deep-link.md
+  s_ba9fefc8c3d6b7::t_818d742333facb 1-38
+docs/adr/ADR-006-posthog-selfhosted-analytics.md
+  s_ba9fefc8c3d6b7::t_1833c8bee042fa 1-34
+PLAN.md
+  s_ba9fefc8c3d6b7::t_a1ee062bc5d5bb 22
+docs/PRD.md
+  s_ba9fefc8c3d6b7::t_95dc74b84804e2 5
+  s_ba9fefc8c3d6b7::t_a1390b3d96d598 102-104
+  s_ba9fefc8c3d6b7::t_19bb25b1e9c2b8 1-4,6-101,105-125
+docs/adr/ADR-009-sentry-default-on.md
+  s_ba9fefc8c3d6b7::t_c77fe97712d841 1-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "28e0b524260079c8a3c27deb33506106938197ea",
+  "prompts": {},
+  "sessions": {
+    "s_ba9fefc8c3d6b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07e40652-83e2-4d31-af5b-8d1c65ee9057",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
