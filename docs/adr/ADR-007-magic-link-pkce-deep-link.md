@@ -16,6 +16,7 @@ Two design questions: (a) which OAuth flow variant for the email link, (b) how t
 1. **PKCE flow** (`flowType: 'pkce'` on the Supabase client). The email link carries a one-time code; the app exchanges it for a session in a dedicated deep-link callback route. PKCE is Supabase's recommended flow for mobile — tokens never appear in the URL fragment, and the exchange is bound to the initiating device.
 2. **Runtime-derived redirect URL** via Expo Linking (`Linking.createURL('auth/callback')`), which reads the scheme from app config. This removes the hardcoded placeholder and the fragile sed replacement in the setup script entirely — the redirect is always correct for whatever scheme the fork configured.
 3. **Supabase allowlist step** added to FIRST-FORK-RUNBOOK: the fork's scheme URL must be added to Supabase Auth → Redirect URLs, otherwise the link falls back to the site URL.
+4. **OTP code entry as first-class fallback** (added after cross-review 2026-07-12): email link scanners (Outlook SafeLinks, Gmail prefetch) can consume single-use magic links before the user clicks, and in-app email browsers often break custom-scheme redirects. The sign-in "sent" state therefore also accepts the 6-digit OTP code from the same email (`verifyOtp`), which needs no deep link at all. Fork runbook: include `{{ .Token }}` in the Supabase magic link email template. This mirrors the base-reference starter (robertguss), which uses OTP-only for exactly this reason.
 
 ## Consequences
 
@@ -26,6 +27,7 @@ Two design questions: (a) which OAuth flow variant for the email link, (b) how t
 - **Negative:**
   - One more runbook step (Supabase redirect allowlist) that cannot be automated without Supabase management API access.
   - Magic link testing requires a real device or simulator with deep-link support — covered by the Maestro smoke flow (PRD R5).
+  - Deep-link delivery is inherently unreliable across email clients (scanners, in-app browsers) — mitigated by the OTP code fallback (decision #4), which is the guaranteed path.
 
 ## Alternatives considered
 

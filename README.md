@@ -1,6 +1,6 @@
 # expo-supabase-template
 
-[![Status](https://img.shields.io/badge/status-production--ready-green)](#status)
+[![Status](https://img.shields.io/badge/status-v1.1--hardening-orange)](#status)
 [![Multi-CLI Ready](https://img.shields.io/badge/AI-Multi--CLI%20Ready-blue?logo=anthropic)](./AGENTS.md)
 [![Linear](https://img.shields.io/badge/Linear-PROD--2655-5E6AD2?logo=linear)](https://linear.app/growlead/issue/PROD-2655)
 
@@ -18,10 +18,11 @@ Postaveno na principech: **AI-first** (Petr neumí Swift, ale umí React), **cro
 
 ## Status
 
-🟢 **Production-ready.** Phases 1-7 complete (foundation, fork, conventions, stack, EAS pipeline, setup script, docs).
-Phase 8 (end-to-end smoke test + GitHub publish) pending.
+🟠 **v1.1 Hardening Wave in progress.** v1.0 build complete (fáze 1-7), ale Fable review (2026-07-12)
+našel gap mezi deklarovaným a reálným stavem — viz [`docs/PRD.md`](./docs/PRD.md). Production-ready
+badge se vrátí po dokončení R8 (ostrý fork → login → TestFlight se stopkami).
 
-Tracking: [PROD-2655](https://linear.app/growlead/issue/PROD-2655) (epic) v Linear projektu [`expo-supabase-template`](https://linear.app/growlead/project/expo-supabase-template-791992ff10e2).
+Tracking: [PROD-2655](https://linear.app/growlead/issue/PROD-2655) (v1.0, Done) + [PROD-5060](https://linear.app/growlead/issue/PROD-5060) (v1.1) v Linear projektu [`expo-supabase-template`](https://linear.app/growlead/project/expo-supabase-template-791992ff10e2).
 
 ## Quick links
 
@@ -69,7 +70,7 @@ Tracking: [PROD-2655](https://linear.app/growlead/issue/PROD-2655) (epic) v Line
 
 ```bash
 # Bootstrap new app from template
-bun create expo-app my-mobile-app --template ~/Developer/DEV/templates/expo-supabase
+bunx create-expo-app@latest my-mobile-app --template ~/Developer/DEV/templates/expo-supabase
 
 # Configure
 cd my-mobile-app
@@ -85,7 +86,7 @@ eas build --profile preview --platform ios
 eas submit --platform ios --latest
 ```
 
-> 👥 **Working on the template itself?** Read [`docs/CLAUDE.md`](./docs/CLAUDE.md) (až bude vytvořen).
+> 👥 **Working on the template itself?** Read [`CLAUDE.md`](./CLAUDE.md) + [`docs/PRD.md`](./docs/PRD.md).
 > **First fork?** Start at [`docs/FIRST-FORK-RUNBOOK.md`](./docs/FIRST-FORK-RUNBOOK.md) (8 sequential steps).
 
 ---
@@ -108,9 +109,11 @@ TL;DR:
 
 ## Origin & inspiration
 
-Template = fork of community starter + GrowLead conventions:
+Template = **rebuild informed by** community starters + GrowLead conventions. (Pozn. v1.1: nejde
+o skutečný git fork — kód vznikl od nuly podle research analýzy `_research/starters-and-widgets/`.
+Tím se ztratily části, které base starter měl hotové — testy, OTP auth robustnost; v1.1 je dohání, viz PRD §2.)
 
-1. **Base fork:** [`robertguss/mobile-starter-kit-expo-supabase`](https://github.com/robertguss/mobile-starter-kit-expo-supabase) — Expo SDK 55, NativeWind v4, TanStack Query, Zustand, PostHog + Sentry pre-wired, EAS 3-tier (March 2026)
+1. **Base reference:** [`robertguss/mobile-starter-kit-expo-supabase`](https://github.com/robertguss/mobile-starter-kit-expo-supabase) — Expo SDK 55, NativeWind v4, TanStack Query, Zustand, PostHog + Sentry pre-wired, EAS 3-tier (March 2026)
 2. **Folder structure:** [`seaguntech/seaguntech-expo-template`](https://github.com/seaguntech/seaguntech-expo-template) — feature-first architecture, NativeWind v5-preview
 3. **Lib patterns:** [`supabase/supabase` expo-user-management](https://github.com/supabase/supabase/tree/master/examples/user-management/expo-user-management) — official lib/supabase.ts initialization
 

@@ -12,7 +12,7 @@ v1.0 shipped Sentry as a placeholder: an `initSentry()` helper existed but nothi
 
 Wire Sentry **fully by default**, using the same env-gated pattern as PostHog:
 - `initSentry()` called at root layout module load; silent no-op when `EXPO_PUBLIC_SENTRY_DSN` is empty.
-- Root layout wrapped with Sentry, plus a global error boundary (and a not-found route) so unhandled render errors are captured instead of white-screening.
+- Root layout wrapped with Sentry, plus a global error boundary so unhandled render errors are captured instead of white-screening. (A `+not-found` route ships alongside as routing hygiene — related DX fix, not part of error capture itself.)
 - `@sentry/react-native/expo` plugin registered in app config; source map upload activates only when Sentry auth is configured in EAS secrets.
 
 Forks that never configure Sentry pay nothing; forks that do get error tracking by filling one env var — no code changes.

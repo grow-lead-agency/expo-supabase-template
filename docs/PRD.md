@@ -40,7 +40,7 @@ Positioning: Pro GrowLead projekty, které potřebují mobilní apku, je tento t
 
 Fable review celého repa našel rozpor mezi deklarovaným stavem („production-ready" badge) a realitou. Klíčový nález: **default auth flow (magic link, ADR-004) nejde dokončit** — e-mailový redirect míří na hardcoded placeholder scheme a v aplikaci neexistuje žádný deep-link handler, který by session vytvořil. Dále: Sentry je mrtvý kód (nikdo nevolá init), referenční sign-in screen porušuje vlastní konvenci RHF+Zod, EAS channels jsou definované bez `expo-updates` (OTA nefunguje), nula testů, CI neodpovídá org security baseline (chybí security gate, actions nejsou SHA-pinned — org má sha_pinning enforcement).
 
-Root cause: Phase 8 (end-to-end smoke test) byla uzavřena bez reálného fork → login → TestFlight cyklu. v1.1 = uzavření mezery mezi slibem a realitou.
+Root cause: Phase 8 (end-to-end smoke test) byla uzavřena bez reálného fork → login → TestFlight cyklu. (Stav Phase 8 je nekonzistentní i napříč evidencí: Linear PROD-2696 = Done, PLAN.md = Pending — R8 to sjednocuje re-runem.) Druhá vrstva root cause: v1.0 vznikl jako **rebuild informed by** komunitní startery, ne skutečný git fork — rozhodnutí se převzala, ale hotová práce base starteru (testy, OTP auth robustnost) se ztratila. v1.1 = uzavření mezery mezi slibem a realitou.
 
 ## §3 Cíle & Success Metrics
 
@@ -70,7 +70,7 @@ Root cause: Phase 8 (end-to-end smoke test) byla uzavřena bez reálného fork �
 
 **R5. Testovací vrstva.** Maestro smoke flow (app se spustí, sign-in se vyrenderuje, jazykový switcher funguje) + unit testy pro chunked SecureStore adapter (chunking/reassembly/remove). Pre-push hook přestává být noop.
 
-**R6. Security & CI baseline.** security workflow (TruffleHog + Semgrep), gitleaks v pre-commit, SHA-pinned GitHub Actions (org enforcement), dependabot config, Node 22 v EAS buildech (Node 20 = EOL 04/2026).
+**R6. Security & CI baseline.** security workflow (TruffleHog + Semgrep), gitleaks v pre-commit, SHA-pinned GitHub Actions (org enforcement), dependabot config, Node 22 v EAS buildech (Node 20 je EOL od jara 2026).
 
 ### P2 — Konzistence & DX
 
@@ -121,5 +121,5 @@ Root cause: Phase 8 (end-to-end smoke test) byla uzavřena bez reálného fork �
 
 | Datum | Verze | Co se změnilo | Trigger |
 |---|---|---|---|
-| 2026-05-28 | v1.0 | Template postaven (PLAN.md fáze 1-8) | PROD-2655 |
+| 2026-05-28 | v1.0 | Template postaven (PLAN.md fáze 1-7; Phase 8 uzavřena bez reálného cyklu) | PROD-2655 |
 | 2026-07-12 | v1.1-draft | Delta PRD: hardening wave po Fable review — P0 broken promises, P1 ops, P2 DX | Fable 5 template review |

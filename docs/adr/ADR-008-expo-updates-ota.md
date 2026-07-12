@@ -13,18 +13,18 @@ v1.0 defined EAS Update channels (`development` / `preview` / `production`) in t
 Install **`expo-updates`** as a template default with:
 - `runtimeVersion` policy `appVersion` — each store version defines its own OTA compatibility boundary; native module changes always go through a store build.
 - Update scripts for preview and production channels (`eas update --channel ...`).
-- Convention: OTA for JS/asset changes only; any dependency change touching native code = new store build. Documented in CLAUDE.md anti-patterns.
+- Convention (HARD, documented in CLAUDE.md anti-patterns): any change touching native code = **bump `expo.version` + new store build**. The version bump is what makes the `appVersion` policy safe — without it, a new native build with an unchanged version shares `runtimeVersion` with the old one, and an incompatible OTA could reach both. OTA is for JS/asset changes only.
 
 ## Consequences
 
 - **Positive:**
   - Hotfix latency drops from days (store review) to minutes.
   - Preview channel becomes a real stakeholder-testing loop (TestFlight build once, iterate via OTA).
-  - EAS Free tier includes updates for our scale (internal/agency apps).
+  - EAS Free tier covers EAS Update up to ~1,000 updated MAU/month (limit as of 2026-07 — verify at fork time); enough for internal/agency apps, consumer apps need the paid tier.
 - **Negative:**
-  - `runtimeVersion` discipline required — an OTA pushed against an incompatible native runtime crashes at startup. Mitigated by `appVersion` policy (conservative, version-scoped).
+  - `runtimeVersion` discipline required — an OTA against an incompatible native runtime may fail at load; `expo-updates` error recovery rolls back to the embedded/previous update, but the failed session is still a bad user experience. Mitigated by `appVersion` policy + the version-bump convention above.
   - Slightly larger app binary and one more startup code path.
-  - Apple guideline 3.3.2 constraints: OTA must not change the app's purpose — fine for fixes/iterations, not for feature smuggling.
+  - Apple constraints on downloaded code (Developer Program License Agreement §3.3.2, App Review Guideline 2.5.2): OTA must not change the app's purpose or core functionality — fine for fixes/iterations, not for feature smuggling.
 
 ## Alternatives considered
 
