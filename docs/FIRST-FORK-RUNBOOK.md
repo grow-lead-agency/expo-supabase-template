@@ -56,6 +56,16 @@ bin/eas-secrets.sh
 
 Verify they made it: `eas secret:list`
 
+## Step 4.5: Configure Supabase Auth (magic link + OTP)
+
+In the Supabase dashboard (per ADR-007):
+
+1. **Auth → URL Configuration → Redirect URLs** — add `{your-scheme}://auth/callback`.
+   Without this, magic links fall back to the Site URL and never reach the app.
+2. **Auth → Email Templates → Magic Link** — make sure the template contains **both**
+   `{{ .ConfirmationURL }}` (the link) and `{{ .Token }}` (the 6-digit code). The code is
+   the guaranteed fallback when email link scanners or in-app browsers break the deep link.
+
 ## Step 5: Run dev server
 
 ```bash
@@ -71,10 +81,12 @@ You should see the sign-in screen.
 In Expo Go / Simulator:
 1. Enter your email
 2. Tap "Send magic link"
-3. Check email, click link
+3. Check email — either click the link (deep link → `auth/callback` → session),
+   or type the 6-digit code into the app (OTP fallback, works everywhere)
 4. App should redirect to dashboard "Hello {email}"
 
-If magic link doesn't redirect: verify Supabase Auth → URL Configuration → Redirect URLs includes `{your-scheme}://auth/callback`.
+If the magic link doesn't redirect: re-check Step 4.5 (redirect allowlist). The OTP code
+path works regardless — if even that fails, the problem is Supabase config, not deep links.
 
 ## Step 7: First preview build
 

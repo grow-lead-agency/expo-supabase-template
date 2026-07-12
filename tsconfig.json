@@ -20,7 +20,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@locales/*": ["./src/locales/*"],
       "@/assets/*": ["./assets/*"]
-    }
+    },
+    "types": ["bun"]
   },
   "include": [
     "**/*.ts",

@@ -77,6 +77,7 @@ fi
 "${SED_IN_PLACE[@]}" "s|{{APP_SCHEME}}|$APP_SCHEME|g" app.json
 "${SED_IN_PLACE[@]}" "s|cz.{{CLIENT}}.app|$BUNDLE_ID|g" app.json
 "${SED_IN_PLACE[@]}" "s|{{APP_NAME}}|$APP_NAME|g" package.json 2>/dev/null || true
+"${SED_IN_PLACE[@]}" "s|cz.{{CLIENT}}.app|$BUNDLE_ID|g" .maestro/smoke.yaml 2>/dev/null || true
 
 # Create .env.local from .example if not exists
 if [ ! -f .env.local ]; then
@@ -95,6 +96,8 @@ if [ "$SKIP_EAS_INIT" = false ]; then
   if command -v eas &> /dev/null; then
     echo "🚀 EAS init..."
     eas init --non-interactive --force || echo "⚠️  eas init failed — run manually later"
+    echo "📡 EAS Update (OTA) configure..."
+    eas update:configure --non-interactive || echo "⚠️  eas update:configure failed — run manually later (ADR-008)"
   else
     echo "⚠️  EAS CLI not installed. Install: bun add -g eas-cli  (then run: eas init)"
   fi
@@ -120,8 +123,11 @@ bunx biome check . 2>&1 | tail -3
 echo ""
 echo "✨ Done! Next steps:"
 echo "  1. Fill in .env.local with Supabase + PostHog + Sentry keys"
-echo "  2. bin/eas-secrets.sh   (push to EAS Secrets)"
-echo "  3. bun run dev          (Metro bundler + QR for Expo Go)"
-echo "  4. Read docs/FIRST-FORK-RUNBOOK.md for full walkthrough"
+echo "  2. Supabase Auth → URL Configuration → add redirect URL: ${APP_SCHEME}://auth/callback"
+echo "     + include {{ .Token }} in the Magic Link email template (OTP fallback, ADR-007)"
+echo "  3. bin/eas-secrets.sh   (push to EAS Secrets)"
+echo "  4. bun run doctor       (sanity check)"
+echo "  5. bun run dev          (Metro bundler + QR for Expo Go)"
+echo "  6. Read docs/FIRST-FORK-RUNBOOK.md for full walkthrough"
 echo ""
 echo "  Optional: bin/setup-widgets.sh   (pre-wire iOS widgets via @bacons/apple-targets — beta)"

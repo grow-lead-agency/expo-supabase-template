@@ -1,34 +1,42 @@
+import * as Linking from 'expo-linking';
 import { supabase } from './supabase';
 
 /**
- * Send a magic link email. User clicks the link → app deep link handler
- * (configured via `expo.scheme` in app.json) → session exchange.
+ * Redirect target for auth emails. Derived from the app scheme at runtime
+ * (ADR-007) — works for any scheme the fork configures, no string replacement.
+ * The resulting URL must be allow-listed in Supabase Auth → Redirect URLs
+ * (see docs/FIRST-FORK-RUNBOOK.md).
+ */
+export function authRedirectUrl() {
+  return Linking.createURL('auth/callback');
+}
+
+/**
+ * Send a magic link email (PKCE flow). User clicks the link → Supabase verify
+ * endpoint → redirect back to `auth/callback` deep link with `?code=` → the
+ * callback route exchanges it for a session.
  *
- * NOTE: Replace `myapp://auth/callback` with your project's deep link scheme
- * once you set `expo.scheme` in app.json (Phase 7 setup script handles this).
+ * Email link scanners can consume the link before the user does (ADR-007 §4),
+ * so the same email should also contain the 6-digit OTP code — verify with
+ * `verifyEmailOtp` as the guaranteed fallback path.
  */
 export async function signInWithMagicLink(email: string) {
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: true,
-      emailRedirectTo: 'myapp://auth/callback',
+      emailRedirectTo: authRedirectUrl(),
     },
   });
   return { error };
 }
 
 /**
- * Sign in with Apple — requires `expo-apple-authentication` runtime call.
- * The component layer (e.g. `<SignInWithApple />`) obtains `idToken` + `nonce`
- * and passes them here.
+ * Verify the 6-digit OTP code from the magic link email. Requires the
+ * Supabase email template to include `{{ .Token }}`.
  */
-export async function signInWithApple(idToken: string, nonce?: string) {
-  const { error } = await supabase.auth.signInWithIdToken({
-    provider: 'apple',
-    token: idToken,
-    nonce,
-  });
+export async function verifyEmailOtp(email: string, token: string) {
+  const { error } = await supabase.auth.verifyOtp({ email, token, type: 'email' });
   return { error };
 }
 

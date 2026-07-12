@@ -23,6 +23,7 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
+    flowType: 'pkce', // ADR-007 — magic link carries ?code=, exchanged in auth/callback route
   },
 });
 

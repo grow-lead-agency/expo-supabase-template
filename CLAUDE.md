@@ -48,6 +48,9 @@ bun run lint               # Biome check
 bun run lint:fix           # Biome auto-fix
 bun run typecheck          # tsc --noEmit
 bun run format             # Biome format --write
+bun run test               # bun test src (unit — chunked storage adapter etc.)
+bun run test:e2e           # Maestro smoke flow (requires simulator + maestro CLI)
+bun run doctor             # Post-fork sanity check (placeholders, env, hooks)
 bun run prebuild           # Generate native ios/ + android/ dirs
 
 # EAS (after `bunx eas-cli login`)
@@ -55,6 +58,8 @@ eas build --profile development --platform ios     # Internal dev build
 eas build --profile preview --platform ios          # TestFlight-ready
 eas build --profile production --platform ios       # App Store-ready
 eas submit --platform ios --latest                  # Upload to TestFlight
+bun run update:preview     # OTA update na preview channel (JS/assets only — ADR-008)
+bun run update:production  # OTA update na production channel
 ```
 
 ## Coding conventions
@@ -84,6 +89,9 @@ eas submit --platform ios --latest                  # Upload to TestFlight
 | `FlatList` pro >50 items | `@shopify/flash-list` |
 | `npm install` / `yarn add` | `bun add` / `bunx expo install` |
 | Auto-enable widgets in a fork | Opt-in only via `bin/setup-widgets.sh` (beta lib, Swift learning curve, App Groups setup) |
+| OTA update po native změně bez bumpu verze | Native změna = **bump `expo.version` + store build** (ADR-008 — jinak nekompatibilní OTA sdílí runtimeVersion se starým buildem) |
+| Hardcoded auth redirect (`myapp://...`) | `authRedirectUrl()` z `src/lib/auth.ts` (runtime přes `Linking.createURL`, ADR-007) |
+| Apple Sign-In helper v template | Odstraněn v v1.1 — opt-in per projekt (`expo-apple-authentication` + plugin + `signInWithIdToken`), viz `auth-supabase-cf` skill |
 
 ## When to use which skill
 
@@ -125,28 +133,35 @@ Detailed walkthrough: `docs/FIRST-FORK-RUNBOOK.md` (Phase 7).
 
 ```
 src/
-├── app/                    # Expo Router v5 (file-based routing)
-│   ├── _layout.tsx         # Root: providers, i18n, Sentry, PostHog, QueryClient
+├── app/                    # Expo Router (file-based routing)
+│   ├── _layout.tsx         # Root: providers, i18n, Sentry init+wrap, ErrorBoundary, auth guard
+│   ├── +not-found.tsx      # 404 route
+│   ├── auth/
+│   │   └── callback.tsx    # Magic link deep-link target — PKCE code→session exchange (ADR-007)
 │   ├── (auth)/             # Unauthenticated group
 │   │   ├── _layout.tsx     # Redirect to /(app) if logged in
-│   │   └── sign-in.tsx     # Magic link + Apple sign-in
+│   │   └── sign-in.tsx     # Magic link (RHF+Zod) + 6-digit OTP fallback
 │   └── (app)/              # Authenticated group
 │       ├── _layout.tsx     # Redirect to /(auth)/sign-in if NOT logged in
 │       └── index.tsx       # Dashboard
 ├── components/             # Reusable UI (NativeWind)
 ├── hooks/                  # Custom hooks (use-auth, ...)
 ├── lib/                    # Lib modules
-│   ├── supabase.ts         # Supabase client + chunked SecureStore adapter
-│   ├── auth.ts             # Auth helpers
+│   ├── supabase.ts         # Supabase client (PKCE) + chunked SecureStore adapter
+│   ├── auth.ts             # Auth helpers (magic link, OTP verify, runtime redirect URL)
+│   ├── sentry.ts           # Sentry init — env-gated default-on (ADR-009)
 │   ├── i18n.ts             # i18next init
 │   ├── posthog.ts          # PostHog provider wrapper
 │   ├── query-client.ts     # TanStack Query setup
 │   └── storage/
-│       └── secure-chunked.ts  # 2KB-chunking adapter for Android SecureStore
+│       ├── secure-chunked.ts       # 2KB-chunking adapter for Android SecureStore
+│       └── secure-chunked.test.ts  # bun test unit suite (mocked expo-secure-store)
+├── stores/                 # Zustand client-state stores (use-app-store.ts = example)
 ├── locales/                # i18n JSON files
 │   ├── cs.json
 │   └── en.json
 └── global.css              # Tailwind directives
+.maestro/smoke.yaml         # Maestro E2E smoke flow (golden path)
 ```
 
 ## HARD RULES checklist (per Petr 2026-05-28)

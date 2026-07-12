@@ -1,0 +1,58 @@
+# Security gate — GrowLead Security Baseline (semgrep SAST + gitleaks secrets + bun audit).
+# Self-contained (no wrapper scripts) — template forks get the gate for free.
+name: Security
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    name: Semgrep SAST
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - name: Run Semgrep (typescript + owasp + secrets)
+        run: |
+          semgrep scan \
+            --config p/typescript \
+            --config p/owasp-top-ten \
+            --config p/secrets \
+            --error --severity ERROR \
+            --exclude node_modules --exclude ios --exclude android
+
+  gitleaks:
+    name: Gitleaks secrets scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+      # Binary directly (Apache-2.0) — gitleaks-action@v2 needs GITLEAKS_LICENSE for org repos.
+      - name: Scan full history
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz | tar -xz gitleaks
+          ./gitleaks git --config=.gitleaks.toml --redact --no-banner
+
+  audit:
+    name: Bun audit (dependency CVEs)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - run: bun install --frozen-lockfile
+      - run: bun audit

@@ -2,14 +2,52 @@ import '@/global.css';
 import '@/lib/i18n';
 
 import { QueryClientProvider } from '@tanstack/react-query';
+import type { ErrorBoundaryProps } from 'expo-router';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { PostHogProvider } from 'posthog-react-native';
 import { useEffect } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
+import { Pressable, Text, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '@/hooks/use-auth';
 import { posthog } from '@/lib/posthog';
 import { queryClient } from '@/lib/query-client';
+import { initSentry, Sentry, sentryEnabled } from '@/lib/sentry';
+
+initSentry(); // env-gated no-op without EXPO_PUBLIC_SENTRY_DSN (ADR-009)
+
+/**
+ * Global error boundary (expo-router convention). Captures render errors to
+ * Sentry (no-op when disabled) and shows a recoverable fallback instead of a
+ * white screen.
+ */
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    Sentry.captureException(error);
+  }, [error]);
+
+  return (
+    <SafeAreaView className="flex-1 bg-white dark:bg-zinc-950">
+      <View className="flex-1 items-center justify-center gap-4 px-6">
+        <Text className="text-center text-xl font-bold text-zinc-900 dark:text-white">
+          {t('errorBoundary.title')}
+        </Text>
+        <Text className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+          {error.message}
+        </Text>
+        <Pressable
+          onPress={retry}
+          className="h-12 items-center justify-center rounded-2xl bg-primary-500 px-6 active:opacity-70"
+        >
+          <Text className="text-base font-bold text-white">{t('errorBoundary.retry')}</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
+  );
+}
 
 function RootStack() {
   const segments = useSegments();
@@ -18,10 +56,12 @@ function RootStack() {
 
   useEffect(() => {
     if (loading) return;
-    const inAuthGroup = segments[0] === '(auth)';
-    if (!session && !inAuthGroup) {
+    // `auth` (deep-link callback) is a neutral zone — never redirect away from
+    // it while the code→session exchange is in flight (ADR-007).
+    const inAuthZone = segments[0] === '(auth)' || segments[0] === 'auth';
+    if (!session && !inAuthZone) {
       router.replace('/(auth)/sign-in');
-    } else if (session && inAuthGroup) {
+    } else if (session && segments[0] === '(auth)') {
       router.replace('/(app)');
     }
   }, [loading, segments, session, router]);
@@ -34,7 +74,7 @@ function RootStack() {
   );
 }
 
-export default function RootLayout() {
+function RootLayout() {
   return (
     <SafeAreaProvider>
       <PostHogProvider client={posthog}>
@@ -46,3 +86,5 @@ export default function RootLayout() {
     </SafeAreaProvider>
   );
 }
+
+export default sentryEnabled ? Sentry.wrap(RootLayout) : RootLayout;

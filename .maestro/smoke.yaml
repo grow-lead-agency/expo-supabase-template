@@ -1,0 +1,18 @@
+# Maestro smoke flow — golden path: app launches, sign-in renders, language switch works.
+# Run locally: maestro test .maestro/smoke.yaml (requires a booted simulator with the app installed).
+# appId is replaced by bin/setup.sh at fork time.
+appId: cz.{{CLIENT}}.app
+---
+- launchApp
+- assertVisible:
+    id: 'sign-in-email'
+- assertVisible:
+    id: 'sign-in-submit'
+- tapOn:
+    id: 'sign-in-email'
+- inputText: 'not-an-email'
+- tapOn:
+    id: 'sign-in-submit'
+# Zod validation must block the submit — still on the sign-in screen.
+- assertVisible:
+    id: 'sign-in-email'

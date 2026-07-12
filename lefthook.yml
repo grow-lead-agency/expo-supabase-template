@@ -18,9 +18,18 @@ pre-commit:
       glob: "*.{ts,tsx}"
       run: bun run typecheck
 
+    gitleaks:
+      # Secret scan on staged files. Guarded: skips locally when gitleaks isn't
+      # installed (brew install gitleaks) — CI security.yml enforces it anyway.
+      run: |
+        if command -v gitleaks >/dev/null 2>&1; then
+          gitleaks git --staged --config=.gitleaks.toml --redact --no-banner
+        else
+          echo "gitleaks not installed — skipping local scan (CI enforces)"
+        fi
+
 pre-push:
   commands:
-    # No tests configured yet at template level. Add `bun run test` once Vitest
-    # is wired up in the forked project. Until then this hook is a no-op.
-    noop:
-      run: echo "lefthook pre-push noop — add test runner when ready"
+    test:
+      # Block pushing red. CI runs the same suite; local catch saves a CI cycle.
+      run: bun test src
