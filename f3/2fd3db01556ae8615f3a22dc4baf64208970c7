@@ -1,0 +1,27 @@
+package.json
+  s_ba9fefc8c3d6b7::t_b47fe224e05a25 59,75-76
+bin/ci/audit.sh
+  s_ba9fefc8c3d6b7::t_ae0ce34eeee8f1 1-38
+bun.lock
+  s_ba9fefc8c3d6b7::t_ef34a3a853a7e7 35,51-52,892,1330,1358,1434-1435,1442-1443,1546-1547
+.github/workflows/security.yml
+  s_ba9fefc8c3d6b7::t_3dfbfef81b33b0 58-60
+bin/ci/audit-allowlist.txt
+  s_ba9fefc8c3d6b7::t_c5519a351e0d54 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "f32fd3db01556ae8615f3a22dc4baf64208970c7",
+  "prompts": {},
+  "sessions": {
+    "s_ba9fefc8c3d6b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07e40652-83e2-4d31-af5b-8d1c65ee9057",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
