@@ -27,7 +27,8 @@ Tracking: [PROD-2655](https://linear.app/growlead/issue/PROD-2655) (epic) v Line
 
 - [`docs/FIRST-FORK-RUNBOOK.md`](./docs/FIRST-FORK-RUNBOOK.md) — first-time fork walkthrough (8 sequential commands, ~30 min)
 - [`docs/FORK-CHECKLIST.md`](./docs/FORK-CHECKLIST.md) — fork #2+ terse checklist
-- [`docs/adr/`](./docs/adr/) — Architecture decisions (5 ADRs)
+- [`docs/PRD.md`](./docs/PRD.md) — PRD v1.1 „Hardening Wave" ([PROD-5060](https://linear.app/growlead/issue/PROD-5060))
+- [`docs/adr/`](./docs/adr/) — Architecture decisions (9 ADRs)
 - [`docs/runbooks/`](./docs/runbooks/) — Ops playbooks (EAS troubleshooting, RLS patterns, Apple Dev setup)
 - [`CLAUDE.md`](./CLAUDE.md) — AI assistant context
 - [`PLAN.md`](./PLAN.md) — Build plan + phase tracking
