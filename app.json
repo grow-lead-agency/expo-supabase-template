@@ -8,6 +8,9 @@
     "scheme": "{{APP_SCHEME}}",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "ios": {
       "icon": "./assets/expo.icon",
       "bundleIdentifier": "cz.{{CLIENT}}.app",
@@ -41,7 +44,9 @@
         }
       ],
       "expo-secure-store",
-      "expo-localization"
+      "expo-localization",
+      "@sentry/react-native/expo",
+      "expo-updates"
     ],
     "experiments": {
       "typedRoutes": true,

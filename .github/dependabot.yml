@@ -1,0 +1,44 @@
+# Dependabot — weekly dependency updates (GrowLead template standard).
+# NOTE for forks: Expo SDK packages are version-coupled — prefer `bunx expo install --fix`
+# over merging individual expo-* bumps. Dependabot here mainly covers non-Expo deps + actions.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Prague"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(dev-deps)"
+      include: "scope"
+    groups:
+      prod-dependencies:
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      dev-dependencies:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+    ignore:
+      # SDK-coupled — bump via `bunx expo install --fix` with an SDK upgrade, not piecemeal.
+      - dependency-name: "expo*"
+      - dependency-name: "react-native*"
+      - dependency-name: "@expo/*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"

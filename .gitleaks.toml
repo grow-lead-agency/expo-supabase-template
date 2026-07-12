@@ -1,0 +1,24 @@
+# Gitleaks config — default rules + mobile-template specifics.
+# CI runs with --redact, findings never print values.
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "expo-template-db-url-inline-password"
+description = "Database URL with inline password"
+regex = '''(?i)\b(?:postgres|postgresql|mysql)://[^:\s/@]{2,}:[^@\s/]{8,}@'''
+keywords = ["postgres://", "postgresql://", "mysql://"]
+
+[[rules]]
+id = "expo-template-supabase-service-role"
+description = "Supabase service_role key (must NEVER ship in a mobile app)"
+regex = '''(?i)service_role['"]?\s*[:=]\s*['"]?ey[A-Za-z0-9_-]{20,}'''
+keywords = ["service_role"]
+
+[allowlist]
+description = "Template placeholders and examples"
+paths = [
+  '''\.env\.local\.example$''',
+  '''docs/.*\.md$''',
+]

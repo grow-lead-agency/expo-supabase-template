@@ -33,8 +33,19 @@ export const SecureChunkedStorage = {
   },
 
   async setItem(key: string, value: string): Promise<void> {
+    // Clean up chunks from a previous larger value first — otherwise a
+    // large→small (or large→fewer-chunks) overwrite leaves orphaned `key:N`
+    // entries in the keychain forever.
+    const prevHead = await SecureStore.getItemAsync(key);
+    const prevChunks = prevHead?.startsWith(CHUNK_PREFIX)
+      ? Number.parseInt(prevHead.slice(CHUNK_PREFIX.length), 10)
+      : 0;
+
     if (value.length <= CHUNK_SIZE) {
       await SecureStore.setItemAsync(key, value);
+      await Promise.all(
+        Array.from({ length: prevChunks }, (_, i) => SecureStore.deleteItemAsync(`${key}:${i}`)),
+      );
       return;
     }
 
@@ -44,6 +55,13 @@ export const SecureChunkedStorage = {
     }
     await SecureStore.setItemAsync(key, `${CHUNK_PREFIX}${chunks.length}`);
     await Promise.all(chunks.map((chunk, i) => SecureStore.setItemAsync(`${key}:${i}`, chunk)));
+    if (prevChunks > chunks.length) {
+      await Promise.all(
+        Array.from({ length: prevChunks - chunks.length }, (_, i) =>
+          SecureStore.deleteItemAsync(`${key}:${chunks.length + i}`),
+        ),
+      );
+    }
   },
 
   async removeItem(key: string): Promise<void> {

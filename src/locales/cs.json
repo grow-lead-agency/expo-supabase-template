@@ -5,15 +5,30 @@
   "email": "E-mail",
   "emailPlaceholder": "tvuj@email.cz",
   "magicLink": "Odeslat magic link",
-  "magicLinkSent": "Magic link byl odeslán. Zkontroluj e-mail.",
-  "signInWithApple": "Přihlásit se přes Apple",
+  "magicLinkSentTitle": "Zkontroluj e-mail",
+  "magicLinkSent": "Poslali jsme přihlašovací odkaz a kód na {{email}}. Klikni na odkaz, nebo zadej 6místný kód.",
+  "otpPlaceholder": "123456",
+  "verifyCode": "Ověřit kód",
+  "tryDifferentEmail": "Zkusit jiný e-mail",
   "dashboard": "Hlavní stránka",
   "loggedInAs": "Přihlášen jako {{email}}",
   "language": "Jazyk",
   "loading": "Načítám…",
+  "auth": {
+    "callbackError": "Přihlašovací odkaz je neplatný nebo vypršel. Zkus to znovu."
+  },
   "error": {
     "generic": "Něco se nepovedlo. Zkus to znovu.",
-    "invalidEmail": "Neplatný e-mail."
+    "invalidEmail": "Neplatný e-mail.",
+    "invalidOtp": "Kód má 6 číslic."
+  },
+  "errorBoundary": {
+    "title": "Něco se pokazilo",
+    "retry": "Zkusit znovu"
+  },
+  "notFound": {
+    "title": "Stránka nenalezena",
+    "goHome": "Zpět na hlavní stránku"
   },
   "items": "{count, plural, =0 {žádné položky} one {# položka} few {# položky} other {# položek}}",
   "minutes": "{count, plural, one {# minuta} few {# minuty} other {# minut}}"

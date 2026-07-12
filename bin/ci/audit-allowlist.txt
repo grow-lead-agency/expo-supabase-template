@@ -1,0 +1,20 @@
+# bun audit allowlist — GHSA advisories vetted as NOT shipping in the app bundle.
+# Discipline: every entry needs (1) why it's safe, (2) review date. Remove entries
+# once the parent dependency bumps the transitive. Re-review at each Expo SDK upgrade.
+#
+# All entries below are BUILD-TIME tooling chains (never bundled into the mobile app):
+#
+# undici <6.27.0 via @sentry/react-native › @sentry/expo-upload-sourcemaps › @sentry/cli
+# — sourcemap upload CLI, runs on the build machine only. Review: 2026-10.
+GHSA-p88m-4jfj-68fv
+GHSA-vxpw-j846-p89q
+GHSA-35p6-xmwp-9g52
+GHSA-g8m3-5g58-fq7m
+#
+# uuid <11.1.1 via expo › @expo/config › @expo/config-plugins › xcode
+# — Xcode project generator (prebuild), build machine only. Review: 2026-10.
+GHSA-w5hq-g745-h8pq
+#
+# js-yaml 4.x via expo › @expo/cli › @expo/xcpretty
+# — Xcode build-log formatter, build machine only. Review: 2026-10.
+GHSA-h67p-54hq-rp68
