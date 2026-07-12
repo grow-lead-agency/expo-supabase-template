@@ -19,6 +19,7 @@
 | Phase 6 — EAS Build/Submit pipeline | ✅ **Done 2026-05-28** | **PROD-2694** |
 | Phase 7 — bin/setup.sh + docs | ✅ **Done 2026-05-28** | **PROD-2695** |
 | Phase 8 — Smoke test + GitHub publish | ⏳ Pending | PROD-2696 |
+| **v1.1 Hardening Wave** (Fable review 2026-07-12 — viz [docs/PRD.md](./docs/PRD.md)) | ⏳ Planned | **PROD-5060** |
 
 ---
 
