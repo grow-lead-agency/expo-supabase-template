@@ -305,3 +305,18 @@ bunx expo prebuild --clean
 - `expo` skill (widget triggers reference PROD-2665): `~/Developer/agents-and-skills/skills/dev/coding/expo/SKILL.md`
 
 <!-- Origin: GrowLead expo-supabase-template | Linear: PROD-2665 -->
+
+---
+
+## Known issues — verified in R8 smoke test (2026-07-13)
+
+1. **Live Activity target is DISABLED by default.** `targets/live-activity/expo-target.config.json.example`
+   must stay renamed — the skeleton's `"type": "activity"` does not exist in `@bacons/apple-targets` 4.0.7
+   and kills the whole prebuild (`TypeError: ... reading 'frameworks'`). Live Activities belong INSIDE the
+   widget extension (ActivityKit ships in the widget bundle) — migrate the swift there when you need it.
+2. **Widget skeleton needs iOS 17+.** `containerBackground(.fill.tertiary, for: .widget)` is an iOS 17 API —
+   `deploymentTarget` is set to `17.0`. Don't lower it without replacing that call.
+3. **Re-running prebuild over an existing widget target fails** ("Cannot read properties of undefined
+   (reading 'removeFromProject')"). Always use `bunx expo prebuild --clean` after changing target config.
+4. **`ios.appleTeamId` warning** — the plugin wants a team ID in app config. Simulator builds work without
+   it; device/TestFlight builds need it (add after Apple Developer enrollment).

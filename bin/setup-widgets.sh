@@ -88,7 +88,7 @@ fi
 echo ""
 echo "✨ iOS widgets pre-wired. Next steps:"
 echo "  1. Customize targets/widget/widget.swift (SwiftUI UI)"
-echo "  2. Customize targets/live-activity/live-activity.swift if you want a Live Activity"
+echo "  2. Live Activity je default VYPNUTÁ (beta lib bug) — viz docs/runbooks/ios-widgets-howto.md Known issues"
 echo "  3. Read targets/widget/README.md and docs/runbooks/ios-widgets-howto.md"
 echo "  4. bunx expo prebuild --clean   (regenerates ios/ with widget target)"
 echo "  5. Open ios/*.xcworkspace in Xcode to verify the new targets"
