@@ -7,12 +7,23 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test';
 
 const store = new Map<string, string>();
 
+// Mock enforces the REAL expo-secure-store key charset — a colon in chunk keys
+// crashed on-device while a permissive mock passed (R8 finding 2026-07-13).
+const KEY_RE = /^[A-Za-z0-9._-]+$/;
+function assertKey(key: string) {
+  if (!KEY_RE.test(key)) throw new Error(`Invalid key provided to SecureStore: ${key}`);
+}
 mock.module('expo-secure-store', () => ({
-  getItemAsync: async (key: string) => store.get(key) ?? null,
+  getItemAsync: async (key: string) => {
+    assertKey(key);
+    return store.get(key) ?? null;
+  },
   setItemAsync: async (key: string, value: string) => {
+    assertKey(key);
     store.set(key, value);
   },
   deleteItemAsync: async (key: string) => {
+    assertKey(key);
     store.delete(key);
   },
 }));
@@ -42,14 +53,14 @@ describe('SecureChunkedStorage', () => {
     await SecureChunkedStorage.setItem('k', value);
 
     expect(store.get('k')).toBe('__chunked__:3');
-    expect(store.get('k:0')?.length).toBe(CHUNK_SIZE);
-    expect(store.get('k:2')?.length).toBe(500);
+    expect(store.get('k.0')?.length).toBe(CHUNK_SIZE);
+    expect(store.get('k.2')?.length).toBe(500);
     expect(await SecureChunkedStorage.getItem('k')).toBe(value);
   });
 
   it('returns null when a chunk is missing (corrupted write)', async () => {
     await SecureChunkedStorage.setItem('k', 'y'.repeat(CHUNK_SIZE * 2));
-    store.delete('k:1');
+    store.delete('k.1');
     expect(await SecureChunkedStorage.getItem('k')).toBeNull();
   });
 
@@ -71,8 +82,8 @@ describe('SecureChunkedStorage', () => {
     const smaller = 'b'.repeat(CHUNK_SIZE * 2); // 2 chunks
     await SecureChunkedStorage.setItem('k', smaller);
     expect(await SecureChunkedStorage.getItem('k')).toBe(smaller);
-    expect(store.has('k:2')).toBe(false);
-    expect(store.has('k:3')).toBe(false);
+    expect(store.has('k.2')).toBe(false);
+    expect(store.has('k.3')).toBe(false);
   });
 
   it('round-trips a realistic supabase session payload (~4KB JSON)', async () => {

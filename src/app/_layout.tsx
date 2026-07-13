@@ -75,14 +75,16 @@ function RootStack() {
 }
 
 function RootLayout() {
+  const app = (
+    <QueryClientProvider client={queryClient}>
+      <RootStack />
+      <StatusBar style="auto" />
+    </QueryClientProvider>
+  );
+
   return (
     <SafeAreaProvider>
-      <PostHogProvider client={posthog}>
-        <QueryClientProvider client={queryClient}>
-          <RootStack />
-          <StatusBar style="auto" />
-        </QueryClientProvider>
-      </PostHogProvider>
+      {posthog ? <PostHogProvider client={posthog}>{app}</PostHogProvider> : app}
     </SafeAreaProvider>
   );
 }

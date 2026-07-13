@@ -25,7 +25,7 @@ export const SecureChunkedStorage = {
     const count = Number.parseInt(head.slice(CHUNK_PREFIX.length), 10);
     const parts: string[] = [];
     for (let i = 0; i < count; i++) {
-      const chunk = await SecureStore.getItemAsync(`${key}:${i}`);
+      const chunk = await SecureStore.getItemAsync(`${key}.${i}`);
       if (chunk === null) return null;
       parts.push(chunk);
     }
@@ -44,7 +44,7 @@ export const SecureChunkedStorage = {
     if (value.length <= CHUNK_SIZE) {
       await SecureStore.setItemAsync(key, value);
       await Promise.all(
-        Array.from({ length: prevChunks }, (_, i) => SecureStore.deleteItemAsync(`${key}:${i}`)),
+        Array.from({ length: prevChunks }, (_, i) => SecureStore.deleteItemAsync(`${key}.${i}`)),
       );
       return;
     }
@@ -54,11 +54,11 @@ export const SecureChunkedStorage = {
       chunks.push(value.slice(i, i + CHUNK_SIZE));
     }
     await SecureStore.setItemAsync(key, `${CHUNK_PREFIX}${chunks.length}`);
-    await Promise.all(chunks.map((chunk, i) => SecureStore.setItemAsync(`${key}:${i}`, chunk)));
+    await Promise.all(chunks.map((chunk, i) => SecureStore.setItemAsync(`${key}.${i}`, chunk)));
     if (prevChunks > chunks.length) {
       await Promise.all(
         Array.from({ length: prevChunks - chunks.length }, (_, i) =>
-          SecureStore.deleteItemAsync(`${key}:${chunks.length + i}`),
+          SecureStore.deleteItemAsync(`${key}.${chunks.length + i}`),
         ),
       );
     }
@@ -69,7 +69,7 @@ export const SecureChunkedStorage = {
     if (head?.startsWith(CHUNK_PREFIX)) {
       const count = Number.parseInt(head.slice(CHUNK_PREFIX.length), 10);
       await Promise.all(
-        Array.from({ length: count }, (_, i) => SecureStore.deleteItemAsync(`${key}:${i}`)),
+        Array.from({ length: count }, (_, i) => SecureStore.deleteItemAsync(`${key}.${i}`)),
       );
     }
     await SecureStore.deleteItemAsync(key);

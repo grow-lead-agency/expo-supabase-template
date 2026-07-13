@@ -6,7 +6,7 @@
   "emailPlaceholder": "tvuj@email.cz",
   "magicLink": "Odeslat magic link",
   "magicLinkSentTitle": "Zkontroluj e-mail",
-  "magicLinkSent": "Poslali jsme přihlašovací odkaz a kód na {{email}}. Klikni na odkaz, nebo zadej 6místný kód.",
+  "magicLinkSent": "Poslali jsme přihlašovací odkaz a kód na {{email}}. Klikni na odkaz, nebo zadej kód z e-mailu.",
   "otpPlaceholder": "123456",
   "verifyCode": "Ověřit kód",
   "tryDifferentEmail": "Zkusit jiný e-mail",
@@ -20,7 +20,7 @@
   "error": {
     "generic": "Něco se nepovedlo. Zkus to znovu.",
     "invalidEmail": "Neplatný e-mail.",
-    "invalidOtp": "Kód má 6 číslic."
+    "invalidOtp": "Zadej číselný kód z e-mailu."
   },
   "errorBoundary": {
     "title": "Něco se pokazilo",

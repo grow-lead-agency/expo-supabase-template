@@ -6,7 +6,7 @@
   "emailPlaceholder": "you@example.com",
   "magicLink": "Send magic link",
   "magicLinkSentTitle": "Check your email",
-  "magicLinkSent": "We sent a sign-in link and code to {{email}}. Tap the link, or enter the 6-digit code.",
+  "magicLinkSent": "We sent a sign-in link and code to {{email}}. Tap the link, or enter the code from the email.",
   "otpPlaceholder": "123456",
   "verifyCode": "Verify code",
   "tryDifferentEmail": "Try a different email",
@@ -20,7 +20,7 @@
   "error": {
     "generic": "Something went wrong. Try again.",
     "invalidEmail": "Invalid email.",
-    "invalidOtp": "The code has 6 digits."
+    "invalidOtp": "Enter the numeric code from the email."
   },
   "errorBoundary": {
     "title": "Something went wrong",

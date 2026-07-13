@@ -123,3 +123,4 @@ Root cause: Phase 8 (end-to-end smoke test) byla uzavřena bez reálného fork �
 |---|---|---|---|
 | 2026-05-28 | v1.0 | Template postaven (PLAN.md fáze 1-7; Phase 8 uzavřena bez reálného cyklu) | PROD-2655 |
 | 2026-07-12 | v1.1-draft | Delta PRD: hardening wave po Fable review — P0 broken promises, P1 ops, P2 DX | Fable 5 template review |
+| 2026-07-13 | v1.1.1 | R8 simulator golden path PASSED (fork→build→login→persistence); 8 nálezů opraveno: SecureStore chunk-key colon crash (P0), OTP 6-10 digits, Sentry upload gate, widget iOS17 + live-activity disable, PostHog null-gate (PROD-2697), e-mail templates/SMTP runbook | R8 smoke test |

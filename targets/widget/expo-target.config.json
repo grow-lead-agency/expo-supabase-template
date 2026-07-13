@@ -2,7 +2,7 @@
   "type": "widget",
   "name": "AppWidget",
   "bundleIdentifier": "{{BUNDLE_ID}}.widget",
-  "deploymentTarget": "16.0",
+  "deploymentTarget": "17.0",
   "frameworks": ["WidgetKit", "SwiftUI"],
   "entitlements": {
     "com.apple.security.application-groups": ["group.{{BUNDLE_ID}}"]

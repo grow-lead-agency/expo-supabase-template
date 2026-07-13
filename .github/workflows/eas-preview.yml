@@ -17,6 +17,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      # Empty on the template repo itself (no EAS project) — EAS steps are
+      # skipped with a notice. Forks set the secret and get real preview builds.
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
@@ -24,12 +28,6 @@ jobs:
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
-
-      - name: Setup EAS
-        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e # v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Lint
         run: bun run lint
@@ -40,5 +38,17 @@ jobs:
       - name: Test
         run: bun test src
 
+      - name: Setup EAS
+        if: env.EXPO_TOKEN != ''
+        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e # v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
       - name: EAS preview build (no-wait)
+        if: env.EXPO_TOKEN != ''
         run: eas build --profile preview --platform ios --non-interactive --no-wait
+
+      - name: EAS skipped notice
+        if: env.EXPO_TOKEN == ''
+        run: echo "EXPO_TOKEN not set — EAS preview build skipped (expected on the template repo; forks configure the secret)."

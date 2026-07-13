@@ -62,9 +62,18 @@ In the Supabase dashboard (per ADR-007):
 
 1. **Auth → URL Configuration → Redirect URLs** — add `{your-scheme}://auth/callback`.
    Without this, magic links fall back to the Site URL and never reach the app.
-2. **Auth → Email Templates → Magic Link** — make sure the template contains **both**
-   `{{ .ConfirmationURL }}` (the link) and `{{ .Token }}` (the 6-digit code). The code is
-   the guaranteed fallback when email link scanners or in-app browsers break the deep link.
+2. **Auth → Email Templates** — add `{{ .Token }}` (the numeric code) next to
+   `{{ .ConfirmationURL }}` in **BOTH** templates: *Magic Link* AND *Confirm signup*.
+   First-time users get the Confirm signup template, returning users get Magic Link
+   (verified R8 2026-07-13) — miss one and half your users have no code fallback.
+   The code is the guaranteed path when email link scanners or in-app browsers break
+   the deep link.
+3. **Auth → Rate limits / SMTP** — the built-in Supabase SMTP allows ~2 emails/hour,
+   which breaks any real testing. Configure custom SMTP (GrowLead default: Resend,
+   `smtp.resend.com:465`, user `resend`, password = API key, sender on a verified
+   domain like `send.growlead.dev`) and raise the email rate limit.
+4. *(Optional)* **Auth → OTP length** — projects may default to 8 digits; the app
+   accepts 6-10. Set 6 for the nicest UX.
 
 ## Step 5: Run dev server
 

@@ -14,7 +14,7 @@ const emailSchema = z.object({
 type EmailForm = z.infer<typeof emailSchema>;
 
 const otpSchema = z.object({
-  code: z.string().regex(/^\d{6}$/),
+  code: z.string().regex(/^\d{6,10}$/), // Supabase otp_length is configurable 6-10 — accept all
 });
 type OtpForm = z.infer<typeof otpSchema>;
 
@@ -96,7 +96,7 @@ export default function SignInScreen() {
                   placeholder={t('otpPlaceholder')}
                   placeholderTextColor="#A1A1AA"
                   keyboardType="number-pad"
-                  maxLength={6}
+                  maxLength={10}
                   editable={!otpForm.formState.isSubmitting}
                   className="h-12 rounded-2xl border border-zinc-200 bg-white px-4 text-center text-lg tracking-widest text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white"
                 />
