@@ -1,0 +1,19 @@
+.github/dependabot.yml
+  s_42d09444194020::t_ceb52b449575d0 33-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "fb13b3892d4a7a928709cd7d2e4f9e6e08c14829",
+  "prompts": {},
+  "sessions": {
+    "s_42d09444194020": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca6fa0b5-6d84-43c3-bb95-35968c1caa0f",
+        "model": "unknown"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
