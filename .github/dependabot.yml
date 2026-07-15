@@ -30,6 +30,8 @@ updates:
       - dependency-name: "expo*"
       - dependency-name: "react-native*"
       - dependency-name: "@expo/*"
+      # Pinned to v3.4 — NativeWind v4 is incompatible with Tailwind v4 (ADR-002).
+      - dependency-name: "tailwindcss"
 
   - package-ecosystem: "github-actions"
     directory: "/"
