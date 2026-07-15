@@ -92,6 +92,7 @@ bun run update:production  # OTA update na production channel
 | OTA update po native změně bez bumpu verze | Native změna = **bump `expo.version` + store build** (ADR-008 — jinak nekompatibilní OTA sdílí runtimeVersion se starým buildem) |
 | Hardcoded auth redirect (`myapp://...`) | `authRedirectUrl()` z `src/lib/auth.ts` (runtime přes `Linking.createURL`, ADR-007) |
 | Apple Sign-In helper v template | Odstraněn v v1.1 — opt-in per projekt (`expo-apple-authentication` + plugin + `signInWithIdToken`), viz `auth-supabase-cf` skill |
+| API breaking change bez bumpu `min_version` | **HARD RULE:** breaking change = bump `min_version` v Supabase `app_config` — jinak se staří klienti rozbijí potichu (force-update gate, ADR-010) |
 
 ## When to use which skill
 

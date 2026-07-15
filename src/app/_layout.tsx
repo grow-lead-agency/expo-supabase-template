@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { ForceUpdateGate } from '@/components/force-update-gate';
 import { useAuth } from '@/hooks/use-auth';
 import { posthog } from '@/lib/posthog';
 import { queryClient } from '@/lib/query-client';
@@ -77,7 +78,9 @@ function RootStack() {
 function RootLayout() {
   const app = (
     <QueryClientProvider client={queryClient}>
-      <RootStack />
+      <ForceUpdateGate>
+        <RootStack />
+      </ForceUpdateGate>
       <StatusBar style="auto" />
     </QueryClientProvider>
   );
