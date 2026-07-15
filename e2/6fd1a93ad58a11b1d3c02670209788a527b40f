@@ -1,0 +1,43 @@
+docs/FORK-CHECKLIST.md
+  s_ba9fefc8c3d6b7::t_ec4d5ba51368e8 7
+bin/make-icons.sh
+  s_ba9fefc8c3d6b7::t_d2d5fbdbf7efdb 1-241
+.claude-session-heartbeat
+  s_f6ab53ba3edc28::t_155334a63fd03d 1
+bin/setup.sh
+  s_8d21ef1101b23e::t_acbf39300f3827 19-21,34-36,53-55,132-142
+CLAUDE.md
+  s_ba9fefc8c3d6b7::t_d4a63047345076 54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "e26fd1a93ad58a11b1d3c02670209788a527b40f",
+  "prompts": {},
+  "sessions": {
+    "s_8d21ef1101b23e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "757dfa47-b0ca-460f-8021-ed0d75f8fe6c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_ba9fefc8c3d6b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07e40652-83e2-4d31-af5b-8d1c65ee9057",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_f6ab53ba3edc28": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6616-d6fd-7f53-bf95-236bc87c471c",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
