@@ -16,6 +16,9 @@ SUPABASE_REF=""
 GH_REPO=""
 SKIP_EAS_INIT=false
 SKIP_SUPABASE_LINK=false
+BRAND_ICON=""
+ICON_CANVAS=""
+ICON_SCALE=""
 
 for arg in "$@"; do
   case $arg in
@@ -28,6 +31,9 @@ for arg in "$@"; do
     --gh-repo=*) GH_REPO="${arg#*=}" ;;
     --skip-eas-init) SKIP_EAS_INIT=true ;;
     --skip-supabase-link) SKIP_SUPABASE_LINK=true ;;
+    --brand-icon=*) BRAND_ICON="${arg#*=}" ;;
+    --canvas=*) ICON_CANVAS="${arg#*=}" ;;
+    --scale=*) ICON_SCALE="${arg#*=}" ;;
     --help|-h)
       cat <<HELP
 Usage: bin/setup.sh [OPTIONS]
@@ -44,6 +50,9 @@ OPTIONS:
   --gh-repo=OWNER/REPO       Create GitHub repo (skip if empty)
   --skip-eas-init            Don't run eas init (do later)
   --skip-supabase-link       Don't link Supabase MCP
+  --brand-icon=PATH          Brand logo (.svg/.png) — generates all app icons via bin/make-icons.sh
+  --canvas=HEX               Icon background color, passed to make-icons.sh (default: #FFFFFF)
+  --scale=PCT                Logo size in % on app icon, passed to make-icons.sh (default: 70)
 HELP
       exit 0
       ;;
@@ -119,6 +128,17 @@ echo "🔍 Verifying..."
 bun install
 bunx tsc --noEmit && echo "✅ tsc clean"
 bunx biome check . 2>&1 | tail -3
+
+# Optional brand → icon pipeline (PROD-5170)
+if [ -n "$BRAND_ICON" ]; then
+  echo ""
+  echo "🎨 Generating app icons from $BRAND_ICON ..."
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  MAKE_ICONS_ARGS=("--brand-icon=$BRAND_ICON")
+  if [ -n "$ICON_CANVAS" ]; then MAKE_ICONS_ARGS+=("--canvas=$ICON_CANVAS"); fi
+  if [ -n "$ICON_SCALE" ]; then MAKE_ICONS_ARGS+=("--scale=$ICON_SCALE"); fi
+  "$SCRIPT_DIR/make-icons.sh" "${MAKE_ICONS_ARGS[@]}"
+fi
 
 echo ""
 echo "✨ Done! Next steps:"
