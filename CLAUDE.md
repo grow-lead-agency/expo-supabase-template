@@ -51,6 +51,7 @@ bun run format             # Biome format --write
 bun run test               # bun test src (unit — chunked storage adapter etc.)
 bun run test:e2e           # Maestro smoke flow (requires simulator + maestro CLI)
 bun run doctor             # Post-fork sanity check (placeholders, env, hooks)
+bin/make-icons.sh --brand-icon=brand/logo.svg --canvas='#0F1023'   # Generate all app icons (icon, adaptive fg/bg/mono, favicon, splash) from one brand logo
 bun run prebuild           # Generate native ios/ + android/ dirs
 
 # EAS (after `bunx eas-cli login`)
