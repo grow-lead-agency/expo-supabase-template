@@ -47,12 +47,20 @@ export function ForceUpdateGate({ children }: { children: React.ReactNode }) {
   const appStoreId = Constants.expoConfig?.extra?.appStoreId as string | undefined;
   const androidPackage = Constants.expoConfig?.android?.package;
 
-  const handleUpdatePress = () => {
-    const url =
-      Platform.OS === 'ios'
+  // Platform-aware: iOS needs extra.appStoreId, Android only android.package.
+  // Android users must not lose the CTA just because the iOS id is missing.
+  const storeUrl =
+    Platform.OS === 'ios'
+      ? appStoreId
         ? `itms-apps://apps.apple.com/app/id${appStoreId}`
-        : `market://details?id=${androidPackage}`;
-    Linking.openURL(url).catch(() => {
+        : null
+      : androidPackage
+        ? `market://details?id=${androidPackage}`
+        : null;
+
+  const handleUpdatePress = () => {
+    if (!storeUrl) return;
+    Linking.openURL(storeUrl).catch(() => {
       // Best-effort — if the store app isn't available (simulator, no store
       // configured) there is nothing more useful to do than swallow it.
     });
@@ -92,7 +100,7 @@ export function ForceUpdateGate({ children }: { children: React.ReactNode }) {
           <Text className="text-center text-sm text-zinc-500 dark:text-zinc-400">
             {t('forceUpdate.message')}
           </Text>
-          {appStoreId ? (
+          {storeUrl ? (
             <Pressable
               testID="force-update-cta"
               onPress={handleUpdatePress}

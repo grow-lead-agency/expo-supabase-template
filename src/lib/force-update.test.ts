@@ -40,6 +40,25 @@ describe('compareVersions', () => {
 });
 
 describe('evaluateUpdateStatus', () => {
+  it('fails open when the remote min_version is malformed (cubic P1)', () => {
+    expect(
+      evaluateUpdateStatus({
+        current: '1.0.0',
+        minVersion: '2broken.0.0',
+        recommendedVersion: null,
+      }),
+    ).toBe('ok');
+    expect(
+      evaluateUpdateStatus({ current: '1.0.0', minVersion: '99xx', recommendedVersion: 'v2.oops' }),
+    ).toBe('ok');
+  });
+
+  it('fails open when the current version is malformed', () => {
+    expect(
+      evaluateUpdateStatus({ current: '1.0-beta', minVersion: '9.9.9', recommendedVersion: null }),
+    ).toBe('ok');
+  });
+
   it('returns blocked when current < minVersion', () => {
     expect(
       evaluateUpdateStatus({ current: '1.0.0', minVersion: '1.1.0', recommendedVersion: null }),

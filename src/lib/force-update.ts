@@ -16,6 +16,18 @@
 export type UpdateStatus = 'blocked' | 'nudge' | 'ok';
 
 /**
+ * A version is valid only if EVERY dot-segment is purely numeric (optional
+ * leading "v"). Used by evaluateUpdateStatus as a strict gate before the
+ * lenient compareVersions runs — "2broken.0.0" must be treated as invalid,
+ * not as 2.0.0 (fail-open).
+ */
+export function isValidVersion(v: string): boolean {
+  const stripped = v.trim().replace(/^v/i, '');
+  if (stripped.length === 0) return false;
+  return stripped.split('.').every((segment) => /^\d+$/.test(segment));
+}
+
+/**
  * Compare two version strings by numeric segments (e.g. "1.10.0" > "1.2.3").
  * - A leading "v" is stripped (e.g. "v1.2.3" → "1.2.3").
  * - Missing segments are treated as 0 (e.g. "1.2" vs "1.2.0" → equal).
@@ -61,13 +73,20 @@ export type EvaluateUpdateStatusInput = {
 export function evaluateUpdateStatus(input: EvaluateUpdateStatusInput): UpdateStatus {
   const { current, minVersion, recommendedVersion } = input;
 
-  if (!current) return 'ok';
+  // Strict validity gate (fail-open): a malformed CURRENT version can't be
+  // compared, and a malformed REMOTE threshold must never block anyone —
+  // compareVersions' lenient parseInt would accept "2broken" as 2.
+  if (!current || !isValidVersion(current)) return 'ok';
 
-  if (minVersion && compareVersions(current, minVersion) < 0) {
+  if (minVersion && isValidVersion(minVersion) && compareVersions(current, minVersion) < 0) {
     return 'blocked';
   }
 
-  if (recommendedVersion && compareVersions(current, recommendedVersion) < 0) {
+  if (
+    recommendedVersion &&
+    isValidVersion(recommendedVersion) &&
+    compareVersions(current, recommendedVersion) < 0
+  ) {
     return 'nudge';
   }
 
