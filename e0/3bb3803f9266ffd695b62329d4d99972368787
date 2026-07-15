@@ -1,0 +1,105 @@
+src/lib/force-update.ts
+  s_9f5fce6d75f0f0::t_59855f4849a7a7 1-118
+CLAUDE.md
+  s_ba9fefc8c3d6b7::t_6af421116273ce 95
+docs/adr/ADR-010-force-update-supabase-app-config.md
+  s_ba9fefc8c3d6b7::t_812f20a2f78ae4 1-55
+src/locales/en.json
+  s_ba9fefc8c3d6b7::t_da62a57e516ab0 29-34
+src/lib/force-update.test.ts
+  s_ba9fefc8c3d6b7::t_4ddac88c5facb2 1-185
+supabase/migrations/20260715000000_app_config.sql
+  s_ba9fefc8c3d6b7::t_95124e2845f22d 1-50
+src/locales/cs.json
+  s_ba9fefc8c3d6b7::t_57fcea628c3df7 29-34
+.claude-session-heartbeat
+  s_8640628b05b005::t_6a9382daba7858 1
+package.json
+  s_7f6546cd845ba8::t_47e8a5d88b0be4 42
+bun.lock
+  s_7f6546cd845ba8::t_45bd6785a83d01 18,711-712
+docs/FORK-CHECKLIST.md
+  s_5b4e8a55887894::t_049a302e4b2c41 8-9
+src/app/_layout.tsx
+  s_2dc325acbfbca8::t_d0ac23e11e212d 13,81-83
+.maestro/force-update.yaml
+  s_f6ab53ba3edc28::t_5fca2dd304a870 1-11
+src/components/force-update-gate.tsx
+  s_ba9fefc8c3d6b7::t_c25a2514537791 1-104
+  s_8d21ef1101b23e::t_c95f265c170667 105-106
+  s_8d21ef1101b23e::t_61e6d3a125c6cb 107-108
+docs/FORK-CHECKLIST.md.tmp.17396.ab6fea38d479
+  s_ba9fefc8c3d6b7::t_c8c44d7bc32108 1-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "e03bb3803f9266ffd695b62329d4d99972368787",
+  "prompts": {},
+  "sessions": {
+    "s_2dc325acbfbca8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a918fd7d-e95a-46bf-a228-21366b0e7e23",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_5b4e8a55887894": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5700-62d7-7d41-8222-829f4cebee08",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_7f6546cd845ba8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f64cf-a54a-70d1-a073-f136bc25425b",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_8640628b05b005": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f611f-c732-7d12-befe-b5367418625a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_8d21ef1101b23e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "757dfa47-b0ca-460f-8021-ed0d75f8fe6c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_9f5fce6d75f0f0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6099-daa8-7bc0-9f7b-48097c11e018",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_ba9fefc8c3d6b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07e40652-83e2-4d31-af5b-8d1c65ee9057",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_f6ab53ba3edc28": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6616-d6fd-7f53-bf95-236bc87c471c",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
