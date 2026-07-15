@@ -1,0 +1,49 @@
+bun.lock
+  s_7f6546cd845ba8::t_b024359d2fe8fd 11-14,40,52,426-437,592-593,672-677,710-717,726-727,1004-1005,1012-1013,1096-1097,1212-1213,1512-1513
+components.json
+  s_9f5fce6d75f0f0::t_3c705f63ec7fd5 1-21
+package.json
+  s_7f6546cd845ba8::t_4189774300d4e6 35-38,64,76
+src/components/ui/button.tsx
+  s_9f5fce6d75f0f0::t_6f759affb8e6a6 1-106
+src/components/ui/card.tsx
+  s_7f6546cd845ba8::t_71ddef2d50f78c 1-55
+src/components/ui/dialog.tsx
+  s_7f6546cd845ba8::t_5394cba7394ee5 1-153
+src/components/ui/icon.tsx
+  s_9f5fce6d75f0f0::t_c46b8fe812b7a5 1-57
+src/components/ui/input.tsx
+  s_9f5fce6d75f0f0::t_c875d835f446fb 1-29
+src/components/ui/native-only-animated-view.tsx
+  s_9f5fce6d75f0f0::t_104f13d642fa79 1-29
+src/components/ui/skeleton.tsx
+  s_9f5fce6d75f0f0::t_2ac58ab2c45dba 1-11
+src/components/ui/tabs.tsx
+  s_7f6546cd845ba8::t_b520b0a7921f90 1-68
+src/components/ui/text.tsx
+  s_9f5fce6d75f0f0::t_a6f18a6cc970db 1-89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "86b1309e18b3922824a0f6746d82457aa5165c20",
+  "prompts": {},
+  "sessions": {
+    "s_7f6546cd845ba8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f64cf-a54a-70d1-a073-f136bc25425b",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    },
+    "s_9f5fce6d75f0f0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6099-daa8-7bc0-9f7b-48097c11e018",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
