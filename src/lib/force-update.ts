@@ -100,7 +100,9 @@ export async function checkForceUpdate(deps: CheckForceUpdateDeps): Promise<Upda
 
   try {
     const config = await Promise.race([
-      fetchConfig(),
+      // .catch inside the race: a rejection AFTER the timeout wins would otherwise
+      // surface as an unhandled promise rejection (the outer try only guards the winner).
+      fetchConfig().catch(() => null),
       new Promise<null>((resolve) => setTimeout(() => resolve(null), FETCH_TIMEOUT_MS)),
     ]);
 
