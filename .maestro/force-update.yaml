@@ -1,0 +1,11 @@
+# Maestro flow — force-update blocking screen (PROD-5165 / ADR-010).
+# Requires a build with the dev override baked in:
+#   EXPO_PUBLIC_FORCE_UPDATE_TEST=blocked bun run dev:ios
+# (EXPO_PUBLIC_* is inlined at bundle time — setting it for `maestro test` alone does nothing.)
+# Run locally: maestro test .maestro/force-update.yaml
+# appId is replaced by bin/setup.sh at fork time.
+appId: cz.{{CLIENT}}.app
+---
+- launchApp
+- assertVisible:
+    id: 'force-update-blocked'

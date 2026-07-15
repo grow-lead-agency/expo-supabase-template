@@ -26,6 +26,12 @@
     "title": "Something went wrong",
     "retry": "Try again"
   },
+  "forceUpdate": {
+    "title": "Update the app",
+    "message": "This version of the app is no longer supported. Please install the latest version.",
+    "cta": "Update",
+    "nudge": "A newer version of the app is available. We recommend updating."
+  },
   "notFound": {
     "title": "Page not found",
     "goHome": "Go home"

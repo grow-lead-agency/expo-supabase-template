@@ -26,6 +26,12 @@
     "title": "Něco se pokazilo",
     "retry": "Zkusit znovu"
   },
+  "forceUpdate": {
+    "title": "Aktualizuj aplikaci",
+    "message": "Tahle verze aplikace už není podporovaná. Stáhni si prosím aktuální verzi.",
+    "cta": "Aktualizovat",
+    "nudge": "Je dostupná novější verze aplikace. Doporučujeme aktualizovat."
+  },
   "notFound": {
     "title": "Stránka nenalezena",
     "goHome": "Zpět na hlavní stránku"
