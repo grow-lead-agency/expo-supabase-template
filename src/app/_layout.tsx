@@ -1,6 +1,7 @@
 import '@/global.css';
 import '@/lib/i18n';
 
+import { PortalHost } from '@rn-primitives/portal';
 import { QueryClientProvider } from '@tanstack/react-query';
 import type { ErrorBoundaryProps } from 'expo-router';
 import { Stack, useRouter, useSegments } from 'expo-router';
@@ -30,19 +31,19 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   }, [error]);
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-zinc-950">
+    <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 items-center justify-center gap-4 px-6">
-        <Text className="text-center text-xl font-bold text-zinc-900 dark:text-white">
+        <Text className="text-center text-xl font-bold text-foreground">
           {t('errorBoundary.title')}
         </Text>
-        <Text className="text-center text-sm text-zinc-500 dark:text-zinc-400">
-          {error.message}
-        </Text>
+        <Text className="text-center text-sm text-muted-foreground">{error.message}</Text>
         <Pressable
           onPress={retry}
-          className="h-12 items-center justify-center rounded-2xl bg-primary-500 px-6 active:opacity-70"
+          className="h-12 items-center justify-center rounded-2xl bg-primary px-6 active:opacity-70"
         >
-          <Text className="text-base font-bold text-white">{t('errorBoundary.retry')}</Text>
+          <Text className="text-base font-bold text-primary-foreground">
+            {t('errorBoundary.retry')}
+          </Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -85,6 +86,8 @@ function RootLayout() {
   return (
     <SafeAreaProvider>
       {posthog ? <PostHogProvider client={posthog}>{app}</PostHogProvider> : app}
+      {/* Portal target for Dialog/overlay primitives (react-native-reusables) */}
+      <PortalHost />
     </SafeAreaProvider>
   );
 }

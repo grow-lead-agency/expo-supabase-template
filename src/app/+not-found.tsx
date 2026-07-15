@@ -9,12 +9,12 @@ export default function NotFoundScreen() {
   return (
     <>
       <Stack.Screen options={{ title: t('notFound.title') }} />
-      <SafeAreaView className="flex-1 bg-white dark:bg-zinc-950">
+      <SafeAreaView className="flex-1 bg-background">
         <View className="flex-1 items-center justify-center gap-4 px-6">
-          <Text className="text-center text-xl font-bold text-zinc-900 dark:text-white">
+          <Text className="text-center text-xl font-bold text-foreground">
             {t('notFound.title')}
           </Text>
-          <Link href="/" replace className="text-base font-bold text-primary-500">
+          <Link href="/" replace className="text-base font-bold text-primary">
             {t('notFound.goHome')}
           </Link>
         </View>

@@ -91,11 +91,35 @@ bun run update:production  # OTA update na production channel
 | Auto-enable widgets in a fork | Opt-in only via `bin/setup-widgets.sh` (beta lib, Swift learning curve, App Groups setup) |
 | OTA update po native změně bez bumpu verze | Native změna = **bump `expo.version` + store build** (ADR-008 — jinak nekompatibilní OTA sdílí runtimeVersion se starým buildem) |
 | Hardcoded auth redirect (`myapp://...`) | `authRedirectUrl()` z `src/lib/auth.ts` (runtime přes `Linking.createURL`, ADR-007) |
+| Ručně psané UI primitivy (button/input/dialog…) | `bunx @react-native-reusables/cli add <component>` — copy-paste ownership, konzistentní API (PROD-5171) |
 | Apple Sign-In helper v template | Odstraněn v v1.1 — opt-in per projekt (`expo-apple-authentication` + plugin + `signInWithIdToken`), viz `auth-supabase-cf` skill |
+
+## UI kit (react-native-reusables)
+
+Template používá [react-native-reusables](https://github.com/founded-labs/react-native-reusables)
+(shadcn pro RN — copy-paste ownership, žádná runtime závislost na UI knihovně).
+Komponenty žijí v `src/components/ui/`, konfigurace v `components.json`.
+
+- **Nová UI komponenta = `bunx @react-native-reusables/cli@latest add <component>`** — NE ruční
+  výroba. (Pozn.: CLI umí viset na TTY promptu — s existujícím `components.json` a `--yes` projde.)
+- **Theming = CSS variables v `src/global.css`** (`--primary`, `--background`, …, shadcn/zinc
+  konvence, Tailwind v3 syntax). Fork přebarvíš přepsáním CSS vars — `tailwind.config.js` needituj.
+- **Živý katalog:** route `/showcase` v `(app)` skupině (dev-only, fork může smazat).
+- `Dialog` a další overlay primitivy renderují přes `<PortalHost />` v root layoutu.
+
+| Use case | Použij |
+|---|---|
+| Buttons, cards, forms, dialogy, tabs, skeletons — brandované UI | `react-native-reusables` (`bunx rnr add`) |
+| OS-nativní prvky: date/time picker, action sheet, context menu | `@expo/ui` (SwiftUI/Jetpack — vždy vzhled OS) |
+
+**Dual-engine výhled:** až NativeWind v5 / Tailwind v4 stabilizují, upgrade dělat KOORDINOVANĚ
+(TW pin + NativeWind + reusables registry najednou, nový ADR) — viz research report
+`knowledge/research/shadcn-for-react-native-2026-07-15/report.md`.
 
 ## When to use which skill
 
 - **Stack patterns** (Expo SDK, NativeWind, Supabase auth, EAS) → `expo` skill
+- **Nové UI komponenty** → `bunx @react-native-reusables/cli add <component>` (NE ruční výroba); OS-native prvky → `@expo/ui`
 - **Multi-step workflow** (bootstrap, EAS submit, App Store review) → `expo-master` agent
 - **Supabase deep dive** (RLS, migrations, Edge Functions) → `supabase` skill
 - **Auth deep dive** (Sign in with Apple, magic links, Google) → `auth-supabase-cf` skill

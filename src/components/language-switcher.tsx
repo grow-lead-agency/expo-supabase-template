@@ -10,15 +10,12 @@ export function LanguageSwitcher() {
     <View className="flex-row items-center gap-2">
       <Pressable
         onPress={() => i18n.changeLanguage('cs')}
-        className={cn(
-          'rounded-full px-3 py-1.5',
-          current === 'cs' ? 'bg-primary-500' : 'bg-zinc-100 dark:bg-zinc-800',
-        )}
+        className={cn('rounded-full px-3 py-1.5', current === 'cs' ? 'bg-primary' : 'bg-secondary')}
       >
         <Text
           className={cn(
             'text-sm font-medium',
-            current === 'cs' ? 'text-white' : 'text-zinc-700 dark:text-zinc-300',
+            current === 'cs' ? 'text-primary-foreground' : 'text-secondary-foreground',
           )}
         >
           CZ
@@ -26,15 +23,12 @@ export function LanguageSwitcher() {
       </Pressable>
       <Pressable
         onPress={() => i18n.changeLanguage('en')}
-        className={cn(
-          'rounded-full px-3 py-1.5',
-          current === 'en' ? 'bg-primary-500' : 'bg-zinc-100 dark:bg-zinc-800',
-        )}
+        className={cn('rounded-full px-3 py-1.5', current === 'en' ? 'bg-primary' : 'bg-secondary')}
       >
         <Text
           className={cn(
             'text-sm font-medium',
-            current === 'en' ? 'text-white' : 'text-zinc-700 dark:text-zinc-300',
+            current === 'en' ? 'text-primary-foreground' : 'text-secondary-foreground',
           )}
         >
           EN
