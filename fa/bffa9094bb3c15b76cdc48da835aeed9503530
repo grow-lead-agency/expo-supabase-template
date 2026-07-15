@@ -1,0 +1,25 @@
+src/lib/force-update.test.ts
+  s_ba9fefc8c3d6b7::t_4e116ca853465a 43-57,59
+  s_ba9fefc8c3d6b7::t_02d5957f47ef0a 58,60-61
+src/components/force-update-gate.tsx
+  s_ba9fefc8c3d6b7::t_4e116ca853465a 50-54,56-63,103
+src/lib/force-update.ts
+  s_ba9fefc8c3d6b7::t_4e116ca853465a 19-29,76-79,81,85-89
+  s_ba9fefc8c3d6b7::t_019717edeb9f03 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "fabffa9094bb3c15b76cdc48da835aeed9503530",
+  "prompts": {},
+  "sessions": {
+    "s_ba9fefc8c3d6b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07e40652-83e2-4d31-af5b-8d1c65ee9057",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Petr Rohan <petr.a.rohan@gmail.com>"
+    }
+  }
+}
