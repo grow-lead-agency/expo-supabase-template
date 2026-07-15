@@ -4,20 +4,42 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      // Semantic colors resolve from CSS variables in src/global.css
+      // (react-native-reusables convention). Fork theming = edit the CSS
+      // variables there — do NOT hardcode brand hex values here.
       colors: {
-        // Brand placeholders — replace per fork.
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#0066FF',
-          50: '#E6F0FF',
-          100: '#CCE0FF',
-          200: '#99C2FF',
-          300: '#66A3FF',
-          400: '#3385FF',
-          500: '#0066FF',
-          600: '#0052CC',
-          700: '#003D99',
-          800: '#002966',
-          900: '#001433',
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
         },
       },
       fontFamily: {

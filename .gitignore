@@ -68,3 +68,4 @@ bun-debug.*
 
 # Misc
 example
+.claude-session-heartbeat

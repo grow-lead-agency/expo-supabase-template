@@ -1,7 +1,11 @@
+import { Link } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LanguageSwitcher } from '@/components/language-switcher';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Text } from '@/components/ui/text';
 import { useAuth } from '@/hooks/use-auth';
 import { signOut } from '@/lib/auth';
 
@@ -10,30 +14,32 @@ export default function DashboardScreen() {
   const { user } = useAuth();
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-zinc-950">
+    <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 px-6 py-8 gap-6">
-        <View className="gap-2">
-          <Text className="text-3xl font-bold text-zinc-900 dark:text-white">{t('dashboard')}</Text>
-          {user?.email && (
-            <Text className="text-base text-zinc-500 dark:text-zinc-400">
-              {t('loggedInAs', { email: user.email })}
-            </Text>
-          )}
-        </View>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('dashboard')}</CardTitle>
+            {user?.email && (
+              <CardDescription>{t('loggedInAs', { email: user.email })}</CardDescription>
+            )}
+          </CardHeader>
+          <CardContent>
+            <Link href="/showcase" asChild>
+              <Button variant="secondary">
+                <Text>UI Showcase</Text>
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
 
         <View className="flex-1" />
 
         <View className="gap-4">
           <LanguageSwitcher />
 
-          <Pressable
-            onPress={() => signOut()}
-            className="h-12 flex-row items-center justify-center rounded-2xl border border-zinc-200 bg-white active:opacity-70 dark:border-zinc-800 dark:bg-zinc-900"
-          >
-            <Text className="text-base font-bold text-zinc-900 dark:text-white">
-              {t('signOut')}
-            </Text>
-          </Pressable>
+          <Button variant="outline" className="h-12" onPress={() => signOut()}>
+            <Text className="font-bold">{t('signOut')}</Text>
+          </Button>
         </View>
       </View>
     </SafeAreaView>

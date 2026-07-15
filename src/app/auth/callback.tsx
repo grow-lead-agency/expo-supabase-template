@@ -32,19 +32,19 @@ export default function AuthCallbackScreen() {
   }, [params.code, params.error_description, router, t]);
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-zinc-950">
+    <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 items-center justify-center gap-4 px-6">
         {error ? (
           <>
             <Text className="text-center text-base text-red-500">{error}</Text>
-            <Link href="/(auth)/sign-in" replace className="text-base font-bold text-primary-500">
+            <Link href="/(auth)/sign-in" replace className="text-base font-bold text-primary">
               {t('signIn')}
             </Link>
           </>
         ) : (
           <>
             <ActivityIndicator />
-            <Text className="text-base text-zinc-500 dark:text-zinc-400">{t('loading')}</Text>
+            <Text className="text-base text-muted-foreground">{t('loading')}</Text>
           </>
         )}
       </View>
